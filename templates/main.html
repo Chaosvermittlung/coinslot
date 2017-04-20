@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="static/css/narrow-jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="jumbotron">
+        <h1 class="display-3">We need your Help</h1>
+        <p class="lead">
+        As most of you know the Chaosvermittlung, is a non commerical project with no membership fees and therefore no income. 
+        Buying our Equipment, even though its old, costs some money though.
+        Thats why we ask you to help us support our project.
+        </p>
+        <p class="lead">
+        Bellow we listed some Projects for which we are still lacking founds.
+        If you fancy one, just donate a Amount of money you find suitable.
+        Therefore we will, in a highly manual process, add your Name and your Message to the Donators list, if you want to.
+        </p>
+        <p class="lead">So please donate to our paypal address: info@chaosvermittlung.de</p>
+        <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
+      </div>
+      <div class="row marketing">
+        {{range $index, $element := .Projects}}
+        <div class="col-lg-6">
+          <h4>{{$element.Name}}</h4>
+          <p>{{$element.Explanation}}</p>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{$element.Percentage}}%">
+              {{$element.Amount}}€
+            </div>
+            <div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{$element.Diffpercent}}%">
+              {{$element.Difference}}€
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Donator</th>
+                  <th>Amount</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{range $index2, $element2 := $element.Donations}}
+                <tr>
+                  <td>{{$element2.Name}}</td>
+                  <td>{{$element2.Amount}}</td>
+                  <td>{{$element2.Message}}</td>
+                </tr>
+                {{end}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {{end}}
+      </div>
+
+    </div> <!-- /container -->
+  </body>
+</html>
