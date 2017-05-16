@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -31,6 +32,20 @@ type project struct {
 	Donations   []donation
 }
 
+func Round(val float64, roundOn float64, places int) (newVal float64) {
+	var round float64
+	pow := math.Pow(10, float64(places))
+	digit := pow * val
+	_, div := math.Modf(digit)
+	if div >= roundOn {
+		round = math.Ceil(digit)
+	} else {
+		round = math.Floor(digit)
+	}
+	newVal = round / pow
+	return
+}
+
 func (p *project) calcPercentage() float64 {
 	return p.Amount / p.Goal * 100
 }
@@ -44,7 +59,7 @@ func (p *project) calcAmount() float64 {
 	for _, d := range p.Donations {
 		res = res + d.Amount
 	}
-	return res
+	return Round(res, 0.5, 2)
 }
 
 type mainpage struct {
